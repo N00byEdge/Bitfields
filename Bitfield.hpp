@@ -1,24 +1,20 @@
 #pragma once
 
 namespace Bitfields {
-  template<unsigned startBit_, unsigned numBits_, typename Container = std::uint32_t>
+  template<unsigned startBit, unsigned numBits, typename Container = std::uint32_t>
   struct Bitfield {
   private:
     constexpr static auto mask() {
       Container out{};
-      for(unsigned i = startBit_; i < startBit_ + numBits_; ++ i) {
+      for(unsigned i = startBit; i < startBit + numBits; ++ i) {
         out |= Container{1} << i;
       }
       return out;
     }
   public:
     
-    enum {
-      selfMask = mask(),
-      otherMask = ~selfMask,
-      startBit = startBit_,
-      numBits = numBits_,
-    };
+    static auto constexpr selfMask = mask();
+    static auto constexpr otherMask = ~selfMask;
 
     static_assert(startBit + numBits <= sizeof(Container) * 8);
 
