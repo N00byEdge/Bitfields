@@ -12,6 +12,8 @@ namespace Bitfields {
       return out;
     }
   public:
+    constexpr Bitfield() = default;
+    constexpr Bitfield(Container val) { *this = val; }
     
     static auto constexpr selfMask = mask();
     static auto constexpr otherMask = ~selfMask;
