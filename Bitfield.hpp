@@ -42,8 +42,8 @@ namespace Bitfields {
     constexpr Bitfield &operator>>=(Container val) { return *this = *this >> val; }
     constexpr Bitfield &operator<<=(Container val) { return *this = *this << val; }
     constexpr Bitfield &operator++ ()              { return *this = *this + 1; }
-    constexpr Bitfield &operator++ (int)           { auto save = *this; ++(*this); return save; }
+    constexpr Container operator++ (int)           { Conatiner save = *this; ++(*this); return save; }
     constexpr Bitfield &operator-- ()              { return *this = *this - 1; }
-    constexpr Bitfield &operator-- (int)           { auto save = *this; --(*this); return save; }
+    constexpr Container operator-- (int)           { Container save = *this; --(*this); return save; }
   };
 }
