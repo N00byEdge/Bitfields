@@ -1,7 +1,7 @@
 #pragma once
 
 namespace Bitfields {
-  template<unsigned startBit, unsigned numBits, typename Container = std::uint32_t>
+  template<unsigned startBit_, unsigned numBits_, typename Container_ = std::uint32_t>
   struct Bitfield {
   private:
     constexpr static auto mask() {
@@ -11,12 +11,15 @@ namespace Bitfields {
       }
       return out;
     }
+    
   public:
     constexpr Bitfield() = default;
-    constexpr Bitfield(Container val) { *this = val; }
+    constexpr Bitfield(Container_ val) { *this = val; }
     
-    static auto constexpr selfMask = mask();
-    static auto constexpr otherMask = ~selfMask;
+    static constexpr auto startBit = startBit_, numBits = numBits_;
+    using Container = Container_;
+    static constexpr auto selfMask = mask();
+    static constexpr auto otherMask = ~selfMask;
 
     static_assert(startBit + numBits <= sizeof(Container) * 8);
 
@@ -29,18 +32,18 @@ namespace Bitfields {
             (*reinterpret_cast<Container*>(this) & otherMask) | ((val << startBit) & selfMask);
     }
 
-    constexpr Bitfield &operator+= (Container val) { return *this = *this + val; }
-    constexpr Bitfield &operator-= (Container val) { return *this = *this - val; }
-    constexpr Bitfield &operator*= (Container val) { return *this = *this * val; }
-    constexpr Bitfield &operator/= (Container val) { return *this = *this / val; }
-    constexpr Bitfield &operator%= (Container val) { return *this = *this % val; }
-    constexpr Bitfield &operator^= (Container val) { return *this = *this ^ val; }
-    constexpr Bitfield &operator&= (Container val) { return *this = *this & val; }
-    constexpr Bitfield &operator|= (Container val) { return *this = *this | val; }
-    constexpr Bitfield &operator>>=(Container val) { return *this = *this >> val; }
-    constexpr Bitfield &operator<<=(Container val) { return *this = *this << val; }
+    constexpr Bitfield &operator+= (Container_ val) { return *this = *this + val; }
+    constexpr Bitfield &operator-= (Container_ val) { return *this = *this - val; }
+    constexpr Bitfield &operator*= (Container_ val) { return *this = *this * val; }
+    constexpr Bitfield &operator/= (Container_ val) { return *this = *this / val; }
+    constexpr Bitfield &operator%= (Container_ val) { return *this = *this % val; }
+    constexpr Bitfield &operator^= (Container_ val) { return *this = *this ^ val; }
+    constexpr Bitfield &operator&= (Container_ val) { return *this = *this & val; }
+    constexpr Bitfield &operator|= (Container_ val) { return *this = *this | val; }
+    constexpr Bitfield &operator>>=(Container_ val) { return *this = *this >> val; }
+    constexpr Bitfield &operator<<=(Container_ val) { return *this = *this << val; }
     constexpr Bitfield &operator++ ()              { return *this = *this + 1; }
-    constexpr Container operator++ (int)           { Conatiner save = *this; ++(*this); return save; }
+    constexpr Container operator++ (int)           { Container save = *this; ++(*this); return save; }
     constexpr Bitfield &operator-- ()              { return *this = *this - 1; }
     constexpr Container operator-- (int)           { Container save = *this; --(*this); return save; }
   };
