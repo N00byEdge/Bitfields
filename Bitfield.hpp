@@ -11,7 +11,7 @@ namespace Bitfields {
       }
       return out;
     }
-    
+
   public:
     constexpr Bitfield() = default;
     constexpr Bitfield(Container_ val) { *this = val; }
@@ -42,9 +42,9 @@ namespace Bitfields {
     constexpr Bitfield &operator|= (Container_ val) { return *this = *this | val; }
     constexpr Bitfield &operator>>=(Container_ val) { return *this = *this >> val; }
     constexpr Bitfield &operator<<=(Container_ val) { return *this = *this << val; }
-    constexpr Bitfield &operator++ ()              { return *this = *this + 1; }
-    constexpr Container operator++ (int)           { Container save = *this; ++(*this); return save; }
-    constexpr Bitfield &operator-- ()              { return *this = *this - 1; }
-    constexpr Container operator-- (int)           { Container save = *this; --(*this); return save; }
+    constexpr Bitfield &operator++ ()               { return *this = *this + 1; }
+    constexpr Container operator++ (int)            { Container save = *this; ++(*this); return save; }
+    constexpr Bitfield &operator-- ()               { return *this = *this - 1; }
+    constexpr Container operator-- (int)            { Container save = *this; --(*this); return save; }
   };
 }
