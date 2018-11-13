@@ -27,9 +27,10 @@ namespace Bitfields {
       return (*reinterpret_cast<Container const *>(this) & selfMask) >> startBit;
     }
 
-    constexpr auto operator=(Container val) {
-      return *reinterpret_cast<Container*>(this) =
-            (*reinterpret_cast<Container*>(this) & otherMask) | ((val << startBit) & selfMask);
+    constexpr auto &operator=(Container val) {
+       *reinterpret_cast<Container*>(this) =
+      (*reinterpret_cast<Container*>(this) & otherMask) | ((val << startBit) & selfMask);
+      return *this;
     }
 
     constexpr Bitfield &operator+= (Container_ val) { return *this = *this + val; }
